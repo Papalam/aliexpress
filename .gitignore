@@ -1,0 +1,5 @@
+.pass
+.DS_Store
+venv
+*.log
+.idea
