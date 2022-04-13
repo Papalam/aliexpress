@@ -1,0 +1,5 @@
+---
+- name: Удаление контейнера
+  community.docker.docker_container:
+    name: "{{ image_name }}"
+    state: absent

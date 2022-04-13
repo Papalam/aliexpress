@@ -1,0 +1,5 @@
+---
+- name: Очистка после работы
+  ansible.builtin.file:
+    path: "{{ path_dir }}"
+    state: absent

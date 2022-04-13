@@ -1,0 +1,38 @@
+---
+- name: Создаем временную директорию
+  ansible.builtin.file:
+    path: "{{ path_dir }}"
+    state: directory
+    owner: 755
+
+- name: Получаем дистрибутив
+  ansible.builtin.git:
+    repo: "https://github.com/Storm039/AliExpress-API.git"
+    dest: "{{ path_dir }}/app"
+    version: master
+
+- name: Копируем файлы для сборки
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ path_dir }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - .env
+    - Dockerfile
+    - requirements.txt
+
+- name: Сборка контейнера
+  community.docker.docker_image:
+    name: "{{ registry_name }}/{{ image_name }}"
+    tag: latest
+    state: present
+    force_source: true
+    force_tag: true
+    push: true
+    build:
+      path: "{{ path_dir }}"
+      dockerfile: Dockerfile
+    source: build
+  notify: Очистка после работы

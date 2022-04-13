@@ -1,0 +1,1 @@
+srv-docker-02   ansible_host=srv-docker-02  ansible_user=root   ansible_port=22

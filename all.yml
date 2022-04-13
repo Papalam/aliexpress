@@ -1,0 +1,8 @@
+---
+- name: Выкладка сервиса
+  hosts: all
+  roles:
+    - role: build
+      tags: build
+    - role: deploy
+      tags: run_task

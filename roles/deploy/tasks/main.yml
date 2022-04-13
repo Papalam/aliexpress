@@ -1,0 +1,9 @@
+---
+- name: Запуск задания
+  community.docker.docker_container:
+    name: "{{ image_name }}"
+    image: "{{ registry_name }}/{{ image_name }}:latest" 
+    state: started
+    detach: no
+  notify: Удаление контейнера
+  
